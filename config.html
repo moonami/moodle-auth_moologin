@@ -1,0 +1,122 @@
+<?php
+    global $OUTPUT;
+    // set to defaults if undefined
+    if (!isset($config->wpaddress)) {
+        $config->wpaddress = '';
+    }
+    if (!isset($config->wprpcuser)) {
+        $config->wprpcuser = '';
+    }
+    if (!isset($config->wprpcpassword)) {
+        $config->wprpcpassword = '';
+    }
+    if (!isset($config->sharedsecret)) {
+        $config->sharedsecret = 'this is not a secure key, change it';
+    }
+    if (!isset($config->timeout)) {
+        $config->timeout = '5';
+    }
+    if (!isset($config->logoffurl)) {
+        $config->logoffurl = '';
+    }
+    if (!isset($config->autoopen)) {
+        $config->autoopen = 'no';
+    }
+?>
+<table cellspacing="0" cellpadding="5" border="0">
+    
+<tr valign="top" class="required">
+    <td align="right"><label for="wpaddress"><?php print_string("auth_moologin_wpaddress", "auth_moologin") ?></label></td>
+    <td>
+        <input id="wpaddress" name="wpaddress" type="text" size="30" value="<?php echo $config->wpaddress?>" />
+        <?php
+            if (isset($err["wpaddress"])) {
+                echo $OUTPUT->error_text($err["wpaddress"]);
+            }
+        ?>
+    </td>
+    <td><?php print_string("auth_moologin_wpaddress_desc", "auth_moologin") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="wprpcuser"><?php print_string("auth_moologin_wprpcuser", "auth_moologin") ?></label></td>
+    <td>
+        <input id="wprpcuser" name="wprpcuser" type="text" size="30" value="<?php echo $config->wprpcuser?>" />
+        <?php
+            if (isset($err["wprpcuser"])) {
+                echo $OUTPUT->error_text($err["wprpcuser"]);
+            }
+        ?>
+    </td>
+    <td><?php print_string("auth_moologin_wprpcuser_desc", "auth_moologin") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="wprpcpassword"><?php print_string("auth_moologin_wprpcpassword", "auth_moologin") ?></label></td>
+    <td>
+        <input id="wprpcpassword" name="wprpcpassword" type="text" size="30" value="<?php echo $config->wprpcpassword?>" />
+        <?php
+            if (isset($err["wprpcpassword"])) {
+                echo $OUTPUT->error_text($err["wprpcpassword"]);
+            }
+        ?>
+    </td>
+    <td><?php print_string("auth_moologin_wprpcpassword_desc", "auth_moologin") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="sharedsecret"><?php print_string("auth_moologin_secretkey", "auth_moologin") ?></label></td>
+    <td>
+        <input id="sharedsecret" name="sharedsecret" type="text" size="30" value="<?php echo $config->sharedsecret?>" />
+        <?php
+            if (isset($err["sharedsecret"])) {
+                echo $OUTPUT->error_text($err["sharedsecret"]);
+            }
+        ?>
+    </td>
+    <td><?php print_string("auth_moologin_secretkey_desc", "auth_moologin") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="timeout"><?php print_string("auth_moologin_timeout", "auth_moologin") ?></label></td>
+    <td>
+        <input id="timeout" name="timeout" type="text" size="3" maxlength="3" value="<?php echo $config->timeout?>" />
+        <?php
+            if (isset($err["timeout"])) {
+                echo $OUTPUT->error_text($err["timeout"]);
+            }
+        ?>
+    </td>
+    <td><?php print_string("auth_moologin_timeout_desc", "auth_moologin") ?></td>
+</tr>
+
+<tr valign="top" class="">
+    <td align="right"><label for="logoffurl"><?php print_string("auth_moologin_logoffurl", "auth_moologin") ?></label></td>
+    <td>
+        <input id="logoffurl" name="logoffurl" type="text" size="30" value="<?php echo $config->logoffurl?>" />
+        <?php
+            if (isset($err["logoffurl"])) {
+                echo $OUTPUT->error_text($err["logoffurl"]);
+            }
+        ?>
+    </td>
+    <td><?php print_string("auth_moologin_logoffurl_desc", "auth_moologin") ?></td>
+</tr>
+
+<tr valign="top" class="">
+    <td align="right"><label for="logoffurl"><?php print_string("auth_moologin_autoopen", "auth_moologin") ?></label></td>
+    <td>
+    	<select id="autoopen" name="autoopen">
+    		<option value='yes'<?php if ($config->autoopen=='yes') { echo "selected-'selected'"; } ?>><?php echo get_string('yes') ?></option>
+    		<option value='no'<?php if ($config->autoopen!='yes') { echo "selected='selected'"; } ?>><?php echo get_string('no') ?></option>
+    	</select>
+    	<?php
+            if (isset($err["autoopen"])) {
+                echo $OUTPUT->error_text($err["autoopen"]);
+            }
+        ?>
+    </td>
+    <td><?php print_string("auth_moologin_autoopen_desc", "auth_moologin") ?></td>
+</tr>
+
+</table>
