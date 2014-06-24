@@ -112,7 +112,7 @@ if (!empty($_GET)) {
         $email = get_key_value($userdata, "email");
         $idnumber = get_key_value($userdata, "idnumber"); // the users id in the wordpress database, stored here for possible user-matching
         $cohort = get_key_value($userdata, "cohort"); // the cohort to map the user user; these can be set as enrolment options on one or more courses, if it doesn't exist then skip this step
-        $courseid = get_key_value($userdata, "courseid"); //Course id
+        $courseid = get_key_value($userdata, "courseid"); // Course IDnumber
         
         //Admin username is illegal
         if ($username === 'admin') {
@@ -260,8 +260,8 @@ if (!empty($_GET)) {
 
         // if we can find a cohort named what we sent in, enrol this user in that cohort by adding a record to cohort_members
         if (!empty($courseid) && empty($cohort)) {
-            if ($DB->record_exists('course', array('id'=>$courseid))) {
-                $course = $DB->get_record('course', array('id'=>$courseid));
+            if ($DB->record_exists('course', array('idnumber'=>$courseid))) {
+                $course = $DB->get_record('course', array('idnumber'=>$courseid));
                 $context = context_course::instance($course->id, MUST_EXIST);
                  // add enrol instances
                 if (!enrol_is_enabled('self')) {
@@ -279,9 +279,13 @@ if (!empty($_GET)) {
                             $instance = reset($instances);
                             $self = enrol_get_plugin('self');
                             $self->enrol_user($instance, $user->id, 5);
-                            $SESSION->wantsurl = new moodle_url('/course/view.php', array('id' => $course->id));
+                            if (get_config('auth/moologin', 'autoopen') == 'yes')  {
+                                $SESSION->wantsurl = new moodle_url('/course/view.php', array('id' => $course->id));
+                            }
                         } else {
-                            $SESSION->wantsurl = new moodle_url('/course/view.php', array('id' => $course->id));
+                            if (get_config('auth/moologin', 'autoopen') == 'yes')  {
+                                $SESSION->wantsurl = new moodle_url('/course/view.php', array('id' => $course->id));
+                            }
                         }
                     } else {
                         print_error('auth_moologin_self_enrol_disabled', 'auth_moologin');
@@ -291,6 +295,9 @@ if (!empty($_GET)) {
                     print_error('auth_moologin_self_enrol_disabled', 'auth_moologin');
                     die();
                 }
+            } else {
+                print_error('auth_moologin_no_course', 'auth_moologin');
+                die();
             } 
         }
         

@@ -60,3 +60,5 @@ $string['auth_moologin_self_enrol_missing'] = 'Self enrolment from Wordpress is 
 $string['auth_moologin_xmlrpc_disabled'] = 'XMLRPC or CURL not enabled';
 $string['auth_moologin_hacking'] = 'Hacking, huh!?';
 $string['auth_moologin_could_not_update'] = 'Could not update record... Please inform admin!';
+
+$string['auth_moologin_no_course'] = 'There is no such course existing in the target system with the specified ID.';
